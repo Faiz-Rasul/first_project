@@ -1,0 +1,40 @@
+{% extends "users/base.html" %}
+
+{% block title %} Settings {% endblock %}
+
+{% block heading %} Settings {% endblock %}
+
+<div>
+    {% block content %}
+
+                            <form id="settings_form" action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="profile_picture"> <img  src="{{user_profile.profile_img.url}}"></div>
+                                <div class="form-group">
+                                    
+                                    <label for=""> Profile Image</label>
+                                    <input type="file" name="image"/>
+                                </div>
+
+
+                                <div class="form-group">
+                                  <label for="address">Address</label>
+                                  <input type="text" class="form-control" name="address" id="address" placeholder="address"  value="{{user_profile.address}}">
+                                </div>
+
+                                
+                            
+                                
+                                <div class="form-group">
+                                    <label for="contact">Contact</label>
+                                    <input type="number" class="form-control" name="contact" id="contact" placeholder="Contact" value="{{user_profile.contact}}">
+                                  </div>
+
+                                  
+                                <br>
+                                <button type="submit" class="btn btn-outline-primary">Save</button>
+                              </form>
+
+        {% endblock %}
+    </div>
+

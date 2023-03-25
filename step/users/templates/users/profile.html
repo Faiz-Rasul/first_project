@@ -1,0 +1,26 @@
+{% extends "users/base.html" %}
+
+{% block title %} Profile {% endblock %}
+
+{% block heading %} Profile {% endblock %}
+
+<div>
+    {% block content %}
+                            <!--Content For Profile-->
+
+        <div class="profile_picture"> <img  src="{{user_profile.profile_img.url}}"></div>
+        <p><b>Student Name:</b> {{user_profile.user}}</p>
+        <p><b>Degree Title:</b> {{user_profile.degree_title}}</p>
+        <p><b>Address:</b> {{user_profile.address}}</p>
+        <p><b>Contact:</b> {{user_profile.contact}}</p>
+
+
+        <a href="/settings"><button class="btn btn-primary">Update Profile</button></a>
+
+
+             
+
+    {% endblock %}
+</div>
+
+   

@@ -1,0 +1,40 @@
+{% extends "users/base.html" %}
+
+{% block title %} View Requests {% endblock %}
+
+{% block heading %} View Requests {% endblock %}
+
+<div>
+    {% block content %}
+                            <br>
+
+
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Content</th>
+                                    <th scope="col">Response</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for request in current_user_object %}
+                                  <tr>
+                                    <th scope="row">{{request.user}}</th>
+                                    <td>{{request.subject}}</td>
+                                    <td>{{request.content}}</td>
+                                    <td>{{request.response}}</td>
+                                  </tr>
+
+                                  {% endfor %}
+
+
+                                  
+                                </tbody>
+                              </table>
+
+{% endblock %}
+</div>
+

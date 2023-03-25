@@ -1,0 +1,35 @@
+{% extends "users/base.html" %}
+
+{% block title %} Exams {% endblock %}
+
+{% block heading %} Exams {% endblock %}
+
+    <div>
+        {% block content %}
+
+                            {% if exam_time == 'no' %}
+
+                            <p class="online_class">There are no exams scheduled in this month.</p>
+                           
+
+                            {% else %}
+
+
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">For</th>
+                                    <th scope="col">Time</th>
+                                    <th>Add</th>
+                                  </tr>
+                                </thead>
+                            </table>
+                              
+
+                            {% endif %}
+
+        {% endblock %}
+
+    </div>
+          

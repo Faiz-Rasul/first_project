@@ -1,0 +1,43 @@
+{% extends "users/base.html" %}
+{% block title %} Voting {% endblock %}
+{% block heading %} Voting {% endblock %}
+
+{% load crispy_forms_tags %}
+
+<div>
+    {% block content %}
+
+    {% if votes_object.has_voted %}
+  
+    
+    <h2>Voting results</h2>
+    <hr>
+    {% for vote_count in votes_count %}
+
+
+
+
+    <b>{{vote_count.option}}</b> - Votes - 
+        {{vote_count.votes}}  
+
+        <hr>
+
+    {% endfor %}
+
+    <b>Total votes = {{total_votes}}</b>
+
+
+
+
+    {% else %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-sm btn-outline-danger" type="submit">Vote</button>
+    </form>
+   
+
+    {% endif %}
+
+    {% endblock %}
+</div>

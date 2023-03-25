@@ -1,0 +1,47 @@
+{% extends "users/base.html" %}
+
+{% block title %} Add Course {% endblock %}
+{% block heading %} Add Course {% endblock %}
+
+    <div>
+        {% block content %}
+
+
+            {{available_courses.course_name}}
+
+            <h3>Available courses for {{user_profile.degree_title}} students </h3>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Course</th>
+                                <th scope="col">For</th>
+                                <th scope="col">Time</th>
+                                <th>Add</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for course in available_courses %}
+                            <tr>
+                                <td><input type="radio" name="course" value="{{course.course_name}}">{{course.course_name}}</td>
+                                <td>{{course.course_for}}</td>
+                                <td>{{course.course_time}}</td>
+                                <td><button class=" btn  btn-sm btn-outline-secondary" type="submit">Add Course!</button></td>
+                            </tr>
+
+                            {% endfor %}
+
+                                  
+
+                                  
+                        </tbody>
+                                
+                    </table>
+                              
+            </form>
+        {% endblock %}
+    </div>
+                    

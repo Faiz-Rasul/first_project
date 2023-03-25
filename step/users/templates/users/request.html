@@ -1,0 +1,27 @@
+{% extends "users/base.html" %}
+
+{% block title %} Add Request {% endblock %}
+
+{% block heading %} Request {% endblock %}
+
+<div>
+    {% block content %}
+
+                            <form id="request_form" action="" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                  <label for="subject">Subject</label>
+                                  <input type="text" class="form-control" name="subject" id="subject" aria-describedby="emailHelp" placeholder="Subject">
+                                </div>
+                                <input type="hidden" name="username" value="{{user}}"/>
+                                <div class="form-group">
+                                    <label for="content">Request details!</label>
+                                    <textarea name="content" form="request_form" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                              </form>
+    
+    {% endblock %}
+</div>
+

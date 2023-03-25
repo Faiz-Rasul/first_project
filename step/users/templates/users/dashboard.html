@@ -1,0 +1,29 @@
+{% extends "users/base.html" %}
+
+{% block nav %}
+                    <div class="vertical_nav2 nav">
+                        <ul>
+                            <li>Balance: &nbsp;{{fees_object.balance}}</li>
+                            <li>Paid: &nbsp;{{fees_object.paid}}</li>
+                            <li><p class="penalty"><b>Penalty: &nbsp;{{fees_object.penalty}}</b></p></li>
+                    </div>
+                    {% endblock %}
+
+
+<div>
+    {% block content %}
+
+    <h1 class="text-center">Welcome to the Student Managment System</h1>
+
+    
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+
+
+    {% endblock %}
+</div>

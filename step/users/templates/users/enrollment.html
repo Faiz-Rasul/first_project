@@ -1,0 +1,130 @@
+{% extends "users/base.html" %}
+
+{% block title %} Enrollment {% endblock %}
+
+{% block heading %} Enrollment {% endblock %}
+
+  <div>
+    {% block content %}
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Course name</th>
+          <th scope="col">Time</th>
+          <th scope="col">For</th>
+          <th scope="col">Edit</th>
+          </tr>
+      </thead>
+      <tbody>
+
+      {% for course in courses %}
+
+        {% if course.course1 %}
+          <tr>
+            <th scope="row">{{course.course1}}</th>
+            <td></td>
+            <td></td>
+            <form method="POST" action="/delete_course/">
+               {% csrf_token %}
+                <input name="delete_course" type="hidden" value="{{course.course1}}">
+                <td><button type="submit", class="btn btn-sm btn-outline-danger">Drop Course</button></td>
+            </form>
+          </tr>
+        {% endif %}
+
+
+        {% if course.course2 %}
+                                  <tr>
+                                    <th scope="row">{{course.course2}}</th>
+                                    <td></td>
+                                    <td></td>
+                                    <form method="POST" action="/delete_course/">
+                                      {% csrf_token %}
+                                    <input name="delete_course" type="hidden" value="{{course.course2}}">
+                                    <td><button type="submit", class="btn btn-sm btn-outline-danger">Drop Course</button></td>
+                                    </form>
+
+                                  </tr>
+
+                                  {% endif %}
+
+
+                                  {% if course.course3 %}
+                                  <tr>
+                                    <th scope="row">{{course.course3}}</th>
+                                    <td></td>
+                                    <td></td>
+                                    <form method="POST" action="/delete_course/">
+                                      {% csrf_token %}
+                                    <input name="delete_course" type="hidden" value="{{course.course3}}">
+                                    <td><button type="submit", class="btn btn-sm btn-outline-danger">Drop Course</button></td>
+                                    </form>
+
+                                  </tr>
+                                  {% endif %}
+
+
+                                  {% if course.course4 %}
+                                  <tr>
+                                    
+                                    <th scope="row">{{course.course4}}</th>
+                                    <td></td>
+                                    <td></td>
+                                    <form method="POST" action="/delete_course/">
+                                      {% csrf_token %}
+                                    <input name="delete_course" type="hidden" value="{{course.course4}}">
+                                    <td><button type="submit", class="btn btn-sm btn-outline-danger">Drop Course</button></td>
+                                    </form>
+
+                                  </tr>
+                                  {% endif %}
+
+
+                                  {% if course.course5 %}
+                                  <tr>
+                                    <th scope="row">{{course.course5}}</th>
+                                    <td></td>
+                                    <td></td>
+                                    <form method="POST" action="/delete_course/">
+                                      {% csrf_token %}
+                                    <input name="delete_course" type="hidden" value="{{course.course5}}">
+                                    <td><button type="submit", class="btn btn-sm btn-outline-danger">Drop Course</button></td>
+                                      </form>
+
+                                  </tr>
+                                  {% endif %}
+
+
+                                  {% if course.course6 %}
+                                  <tr>
+                                    <th scope="row">{{course.course6}}</th>
+                                    <td></td>
+                                    <td></td>
+                                    <form method="POST" action="/delete_course/">
+                                      {% csrf_token %}
+                                    <input name="delete_course" type="hidden" value="{{course.course6}}">
+                                    <td><button type="submit", class="btn btn-sm btn-outline-danger">Drop Course</button></td>
+                                      </form>
+
+                                  </tr>
+                                  {% endif %}
+                                  
+
+
+
+                                  {% endfor %}
+
+
+                                  
+                                </tbody>
+                              </table>
+
+                            </form>
+
+  {% endblock %}                     
+  </div>
+
+
+            
+  

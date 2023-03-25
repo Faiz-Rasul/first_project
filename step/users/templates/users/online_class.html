@@ -1,0 +1,35 @@
+{% extends "users/base.html" %}
+
+{% block title %} Online Class {% endblock %}
+
+{% block heading %} Online Class {% endblock %}
+
+<div>
+    {% block content %}
+
+                            <h3>Online classes for {{user_profile.user}}  </h3>
+
+                            {% if class_time == 'no' %}
+
+                            <p class="online_class">None of your enrolled courses have an online class that is being held right now </p>
+                           
+
+                            {% else %}
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Course</th>
+                                            <th scope="col">For</th>
+                                            <th scope="col">Time</th>
+                                            <th>Add</th>
+                                        </tr>
+                                    </thead>
+                            
+                                
+                                </table>
+                 
+                            {% endif %}
+
+    {% endblock %}
+</div>

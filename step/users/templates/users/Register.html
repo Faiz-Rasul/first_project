@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'users/register_style.css' %}">
+    
+    <title>Register</title>
+</head>
+<body>
+
+    {% load crispy_forms_tags %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+        <div class="image_div">
+            <img src="{% static 'biztek.png' %}">
+        </div>
+
+        <div class="rec_div">
+            <div class="row">
+                <div class="rec_text col-lg-8">
+                    <h2>STEP </h2>
+                    <small>VER. 3.0</small>
+                </div>
+
+                <div class="rec_heading col-lg-4">
+                    <h2>REGISTER YOURSELF     
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+       <!-- section div--> 
+    <div class="row panels">
+
+        <div class="left_panel col-lg-4 text-center">
+            <h2 >Verify Yourself</h2>
+            <small >Please mention your Student ID & Registration Receipt Number of Admission Fee. In case you do not have Admission Fee Receipt Number, please ask through email at step.admin@ilmauniversity.edu.pk</small>
+
+            <br> <br>
+            <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Reciet Number</label>
+                  <input type="text" class="form-control" >
+                </div>
+
+                <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+
+
+            <small>I do hereby agree to receive emails and newsletters from ILMA University, its constituent colleges, alumni, students and the research agencies associated with it.</small>
+
+        </div>
+        
+
+
+
+        <div class="right_panel col-lg-6">
+            <div class="border_inv">
+
+                <h2>
+                    Personal Info
+                </h2>
+
+                <p>Get Registered by verifying your information in order to Click Verifed Button.</p>
+
+                <!--form-->
+
+                <div class="content-section">
+                        <form action="" method="POST">
+                                {% csrf_token %}
+                    
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4">
+                                    Join Today
+                                </legend>
+                                {{ form |crispy }}
+                            </fieldset>
+                    
+                            <div class="form-group">
+                                <button class="btn btn-outline-secondary" type="submit">Sign Up</button>
+                            </div>
+                        </form>
+                            
+                            <div class="border-top pt-3">
+                                <small class="text-muted">Already have an account?<a class="ml-2" href="/">Login</a></small>
+                           </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
