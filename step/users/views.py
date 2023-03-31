@@ -36,16 +36,13 @@ def register(request):
             degree_title = ['bscs', 'bba', 'bms', 'bfd']
 
             student_degree_title = random.choice(degree_title)
+            
+            user_model = User.objects.get(username=username)
 
-
-
-
-
-            new_profile = UserInfo.objects.create(user=username, degree_title=student_degree_title)
+            new_profile = UserInfo.objects.create(user=user_model, degree_title=student_degree_title)
             new_profile.save()
 
 
-            user_model = User.objects.get(username=username)
             new_enrollment = Enrollment.objects.create(user=user_model)
             new_enrollment.save()
 
@@ -161,7 +158,6 @@ def settings(request):
             contact = request.POST['contact']
             image = user_profile.profile_img
 
-            user_profile.user = user
             user_profile.address = address
             user_profile.contact = contact
             user_profile.profile_img = image
@@ -197,155 +193,21 @@ def settings(request):
 
 
 @login_required(login_url='signin')
-def add_courses(request):
-    user_profile = UserInfo.objects.get(user=request.user)
-    fees = Fees.objects.get(user=request.user)
-    today = date.today()
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-
-
-    
-    available_courses = AvailableCourses.objects.filter(course_for=user_profile.degree_title) | AvailableCourses.objects.filter(course_for ='all')
-
-
-
-    if request.method == 'POST':
-        course = request.POST['course']
-
-        add_course = Enrollment.objects.get(user = request.user)
-
-        if course == add_course.course1 or course == add_course.course2 or course == add_course.course3 or course == add_course.course4 or course == add_course.course5 or course == add_course.course6:
-            messages.warning(request, f"You are already enrolled in the selected course, please choose another course")
-            return redirect('enrollment')
-
-        if add_course.course1 == "":
-            add_course.course1 = course
-
-            add_course.save()
-
-            fees.course_fees = fees.course_fees + 10000
-            fees.balance = fees.balance + 10000
-            fees.save()
-
-        elif add_course.course2 == "":
-            add_course.course2 = course
-
-            add_course.save()
-
-            fees.course_fees = fees.course_fees + 10000
-            fees.balance = fees.balance + 10000
-            fees.save()
-
-        elif add_course.course3 == "":
-            add_course.course3 = course
-
-            add_course.save()
-
-            fees.course_fees = fees.course_fees + 10000
-            fees.balance = fees.balance + 10000
-            fees.save()
-
-        elif add_course.course4 == "":
-            add_course.course4 = course
-
-            add_course.save()
-
-            fees.course_fees = fees.course_fees + 10000
-            fees.balance = fees.balance + 10000
-            fees.save()
-
-        elif add_course.course5 == "":
-            add_course.course5 = course
-
-            add_course.save()
-
-            fees.course_fees = fees.course_fees + 10000
-            fees.balance = fees.balance + 10000
-            fees.save()
-
-        elif add_course.course6 == "":
-            add_course.course6 = course
-
-            add_course.save()
-
-            fees.course_fees = fees.course_fees + 10000
-            fees.balance = fees.balance + 10000
-            fees.save()
-
-
-        else:
-            messages.warning(request, f"Your slots are already full, can't add any more")
-            return redirect('enrollment')
-
-
-        messages.success(request, f"{course} added, see enrollment")
-    return render(request, "users/add_courses.html", {'user_profile':user_profile, 'today':today, 'current_time': current_time, 'available_courses' :available_courses})
-
-
-@login_required(login_url='signin')
-def enrollment(request):
-
-    user_profile = UserInfo.objects.get(user=request.user)
-    today = date.today()
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-
-
-    courses = Enrollment.objects.filter(user= request.user)
-
-
-
-    
-    return render(request, "users/enrollment.html", {'user_profile':user_profile, 'today':today, 'current_time': current_time, 'courses': courses})
-
-
-@login_required(login_url='signin')
 def delete_course(request):
 
     if request.method == 'POST':
         course = request.POST['delete_course']
 
+        delete_course = EnrollmentReal.objects.get(user=request.user, course_name = course)
+        delete_course.delete()
 
-        enrolled_courses = Enrollment.objects.get(user=request.user)
+        messages.warning(request, f"{course} dropped")
 
-        if enrolled_courses.course1 == course: 
-            enrolled_courses.course1 = "Course Dropped"
-            enrolled_courses.save()
-            messages.success(request, "course dropped")
+        return redirect("enrollment_real")
+    
+    return redirect("enrollment_real")
 
-        elif enrolled_courses.course2 == course: 
-            enrolled_courses.course2 = "Course Dropped"
-            enrolled_courses.save()
-            messages.success(request, "course dropped")
-
-        elif enrolled_courses.course3 == course: 
-            enrolled_courses.course3 = "Course Dropped"
-            enrolled_courses.save()
-            messages.success(request, "course dropped")
-
-        elif enrolled_courses.course4 == course: 
-            enrolled_courses.course4 = "Course Dropped"
-            enrolled_courses.save()
-            messages.success(request, "course dropped")
-
-        elif enrolled_courses.course5 == course: 
-            enrolled_courses.course5 = "Course Dropped"
-            enrolled_courses.save()
-            messages.success(request, "course dropped")
-
-        elif enrolled_courses.course6 == course: 
-            enrolled_courses.course6 = "Course Dropped"
-            enrolled_courses.save()
-            messages.success(request, "course dropped")
-            
-
-        return redirect("enrollment")
         
-
-    else:
-
-        return redirect("enrollment")
 
 
 
@@ -487,5 +349,59 @@ def voting(request):
 
                 return redirect('voting')
     return render(request, "users/voting.html", {'user_profile': user_profile, 'today':today, 'current_time': current_time, 'form':form })
+
+
+@login_required(login_url='signin')
+def enrollment(request):
+
+    user_profile = UserInfo.objects.get(user=request.user)
+    today = date.today()
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    student_courses = Enrollment.objects.filter(user = request.user) 
+
+
+    return render(request, "users/enrollment.html", {'user_profile': user_profile, 'today':today, 'current_time': current_time, 'student_courses':student_courses})
+
+@login_required(login_url='signin')
+def add_course(request):
+    user_profile = UserInfo.objects.get(user=request.user)
+    today = date.today()
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    fees_object = Fees.objects.get(user=request.user)
+    available_courses = AvailableCourses.objects.filter(course_for= user_profile.degree_title) | AvailableCourses.objects.filter(course_for = 'all') 
+    shift =[]
+    i = 0
+
+    if Enrollment.objects.filter(user=request.user):
+        enrollment_object = Enrollment.objects.filter(user=request.user)
+
+        for courses in enrollment_object:
+            
+            shift.append(courses.course_time)
+            available_courses = available_courses.exclude(course_time=shift[i])
+            i= i+1
+      
+  
+    if request.method == 'POST':
+        course = request.POST['course']
+        
+        course = AvailableCourses.objects.get(course_name=course)
+
+        add_course = Enrollment.objects.create(user=request.user, course_name=course.course_name, course_for=course.course_for, course_time=course.course_time)
+        add_course.save()
+
+        fees_object.course_fees = fees_object.course_fees + 10000
+        fees_object.balance = fees_object.balance + 10000
+        fees_object.save()
+
+        messages.info(request, f"{course} course added ")
+
+        return redirect('enrollment')
+    return render(request, "users/add_course.html", {'user_profile': user_profile, 'today':today, 'current_time': current_time, 'available_courses':available_courses})
+
+
+
 
 

@@ -19,14 +19,14 @@ class OtherRequests(models.Model):
     
 
 class UserInfo(models.Model):
-    user = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     degree_title = models.CharField(max_length=20, blank=False, default='bscs')
     address = models.CharField(max_length=50)
     profile_img = models.ImageField(upload_to='profile_images', default='blank-profile-picture.png')
     contact = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 class AvailableCourses(models.Model):
@@ -38,18 +38,16 @@ class AvailableCourses(models.Model):
         return self.course_name
 
 
+    
+
 class Enrollment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    course1 = models.CharField(max_length=20, blank=True)
-    course2 = models.CharField(max_length=20, blank=True)
-    course3 = models.CharField(max_length=20, blank=True)
-    course4 = models.CharField(max_length=20, blank=True)
-    course5 = models.CharField(max_length=20, blank=True)
-    course6 = models.CharField(max_length=20,blank=True)
+    course_name = models.CharField(max_length=20, blank=False)
+    course_for = models.CharField(max_length=10, blank=False)
+    course_time = models.CharField(max_length=20, blank=False)
 
     def __str__(self):
         return self.user.username
-
 
 class Fees(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
