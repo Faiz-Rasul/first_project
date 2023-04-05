@@ -1,31 +1,41 @@
 
 
-
-
-.right-panel{
-    margin: 110px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.home_content{
+    background-color: white;
+    height: 800px;
+    float: left;
 }
 
-.logo{
-    height: 100px;
+.image_div{
+ 
+    float: right;
+}
+
+
+.box{
+    margin-top: 400px;
+    height: 400px;
+    margin-top:150px;
+    margin-left: 70px;
+}
+
+.box p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: gray;
+    font-size: 60px
 }
 
 .login_button{
-    height: 45px;
-    background-color: #00acac;
-    color: white;
-    border-color: #00acac;
-    width: 100%;
-    border-radius: 3%;
-    font-weight: 600;
-    margin-top: 6px;
-    
+background-color: #010444;
+color: white;
+border-radius: 50px;
+height: 55px;
+width: 180px;
+font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+font-size: 20px;
+
 }
 
-
-a :hover{
-    
-    background-color:#067d7d;
-    
+a .login_button:hover{
+    background-color: black;
 }

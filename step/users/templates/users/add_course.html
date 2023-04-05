@@ -28,7 +28,7 @@
                             
                             {% for course in available_courses %}
                             <tr>
-                                <td><input type="radio" name="course" value="{{course.course_name}}">{{course.course_name}}</td>
+                                <td><input type="text" hidden name="course" value="{{course.course_name}}">{{course.course_name}}</td>
                                 <td>{{course.course_for}}</td>
                                 <td>{{course.course_time}}</td>
                                 <td><button class=" btn  btn-sm btn-outline-secondary" type="submit">Add Course!</button></td>

@@ -1,0 +1,33 @@
+.right-panel{
+    margin: 110px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.logo{
+    height: 100px;
+}
+
+.login_button{
+    height: 45px;
+    background-color: #00acac;
+    color: white;
+    border-color: #00acac;
+    width: 100%;
+    border-radius: 3%;
+    font-weight: 600;
+    margin-top: 6px;
+    
+}
+
+
+a .login_button:hover{
+    
+    background-color:#067d7d;
+    
+}
+
+
+
+
+
+

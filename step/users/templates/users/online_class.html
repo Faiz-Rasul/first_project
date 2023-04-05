@@ -11,7 +11,7 @@
 
                             {% if class_time == 'no' %}
 
-                            <p class="online_class">None of your enrolled courses have an online class that is being held right now </p>
+                            <p class="online_class">{{shift_course}} </p>
                            
 
                             {% else %}
@@ -22,9 +22,24 @@
                                             <th scope="col">Course</th>
                                             <th scope="col">For</th>
                                             <th scope="col">Time</th>
-                                            <th>Add</th>
+                                            
                                         </tr>
                                     </thead>
+
+                                    <tr>
+                                        <td><b>{{shift_course.course_name}}</b></td>
+                                        <td>{{shift_course.course_for}}</td>
+                                        <td>{{shift_course.course_time}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Zoom link</b>
+                                        </td>
+                                        <td>
+                                            <a href="https://www.zoom.com">https://www.zoom.com</a>
+                                        </td>
+                                    </tr>
                             
                                 
                                 </table>

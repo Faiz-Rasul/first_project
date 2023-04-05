@@ -68,8 +68,16 @@ class Voting(models.Model):
     option = models.CharField(blank=True, max_length=35)
     votes = models.IntegerField(default=0, blank=False)
 
+    def __str__(self):
+        return self.option
 
-class Votes(models.Model):
+
+
+
+class UserVotes(models.Model):
     voter = models.ForeignKey(User, on_delete=models.CASCADE)
-    option = models.CharField(blank=True, max_length=35)
+    chosen_option = models.ForeignKey(Voting, on_delete=models.CASCADE)
     has_voted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.voter

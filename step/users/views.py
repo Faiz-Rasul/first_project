@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import date
 from datetime import datetime
 from django.contrib.auth import authenticate, login
-from .models import OtherRequests, UserInfo, AvailableCourses, Enrollment, Fees, Voting, Votes
+from .models import OtherRequests, UserInfo, AvailableCourses, Enrollment, Fees, Voting,  UserVotes
 from django.db.models import Q
 from django.contrib.auth.models import User
 import random
@@ -43,8 +43,6 @@ def register(request):
             new_profile.save()
 
 
-            new_enrollment = Enrollment.objects.create(user=user_model)
-            new_enrollment.save()
 
             new_user_fees = Fees.objects.create(user=user_model, enrollment_fees=5000, monthly_fees = 2000, balance=7000)
             new_user_fees.save()
@@ -176,7 +174,7 @@ def settings(request):
             contact = request.POST['contact']
             image = request.FILES.get('image')
 
-            user_profile.user = user
+            user_profile.user = request.user
             user_profile.address = address
             user_profile.contact = contact
             user_profile.profile_img = image
@@ -198,14 +196,14 @@ def delete_course(request):
     if request.method == 'POST':
         course = request.POST['delete_course']
 
-        delete_course = EnrollmentReal.objects.get(user=request.user, course_name = course)
+        delete_course = Enrollment.objects.get(user=request.user, course_name = course)
         delete_course.delete()
 
         messages.warning(request, f"{course} dropped")
 
-        return redirect("enrollment_real")
+        return redirect("enrollment")
     
-    return redirect("enrollment_real")
+    return redirect("enrollment")
 
         
 
@@ -243,28 +241,84 @@ def fees(request):
     return render(request, "users/fees.html" , {'user_profile':user_profile, 'today':today, 'current_time': current_time, 'fees_object': fees_object})
 
 
+
+    
+            
+
+    return render(request, "users/online_class.html", {'user_profile': user_profile, 'today':today, 'current_time': current_time,'class_time': class_time,})
+
+
 @login_required(login_url='signin')
 def online_class(request):
-    
     user_profile = UserInfo.objects.get(user=request.user)
     today = date.today()
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     class_time = "no"
+    hour = int(now.strftime("%H"))
 
-    hour = now.strftime("%H")
+
+    if Enrollment.objects.filter(user=request.user):
+        user_enrollments = Enrollment.objects.filter(user=request.user)
+        for enrollment in user_enrollments:
+
+            if enrollment.course_time == 'morning' and hour >8 and hour <12:
+                class_time = "yes"
+                shift_course = Enrollment.objects.get(course_time = 'morning', user=request.user)
+
+                return render(request, "users/online_class.html", {'user_profile': user_profile,
+                    'today':today, 'current_time': current_time,'class_time': class_time, 'shift_course': shift_course})
+
+
+
+
+            elif enrollment.course_time == 'afternoon' and hour >11 and hour <15:
+                class_time = "yes"
+                shift_course = Enrollment.objects.get(course_time = 'afternoon', user=request.user)
+
+                return render(request, "users/online_class.html", {'user_profile': user_profile,
+                    'today':today, 'current_time': current_time,'class_time': class_time, 'shift_course': shift_course})
+
+
+
+
+            elif enrollment.course_time == 'evening' and hour >14 and hour <18:
+                class_time = "yes"
+                shift_course = Enrollment.objects.get(course_time = 'evening', user=request.user)
+
+                return render(request, "users/online_class.html", {'user_profile': user_profile,
+                    'today':today, 'current_time': current_time,'class_time': class_time, 'shift_course': shift_course})
+
+
+
+
+            elif enrollment.course_time == 'night' and hour >17 and hour <21:
+                class_time = 'Yes'
+                shift_course = Enrollment.objects.get(course_time = 'night', user=request.user)
+
+                return render(request, "users/online_class.html", {'user_profile': user_profile,
+                    'today':today, 'current_time': current_time,'class_time': class_time, 'shift_course': shift_course})
+
+
+                
+
+
+        else:
+            shift_course = "None of your enrolled courses have a class at this time"
+            return render(request, "users/online_class.html", {'user_profile': user_profile,
+                'today':today, 'current_time': current_time,'class_time': class_time, 'shift_course': shift_course})
+
  
     
-
-
+    else:
+        shift_course = "You are currently not enrolled in any courses"
+        return render(request, "users/online_class.html", {'user_profile': user_profile,
+        'today':today, 'current_time': current_time,'class_time': class_time, 'shift_course':shift_course})
     
-    for i in range(9,22):
-        if int(hour) == i:
-            class_time = "yes"
     
-            
 
-    return render(request, "users/online_class.html", {'user_profile': user_profile, 'today':today, 'current_time': current_time,'class_time': class_time,})
+
+
 
 
 
@@ -295,32 +349,31 @@ def voting(request):
     current_time = now.strftime("%H:%M:%S")
     form = VoteForm()
 
-    
-    if Votes.objects.filter(voter=request.user):
-        votes_object = Votes.objects.get(voter=request.user)
+    if UserVotes.objects.filter(voter=request.user):
+        votes_object = UserVotes.objects.get(voter=request.user)
 
         votes_count = Voting.objects.all()
 
-        option1_votes = Voting.objects.get(id=1)
+        option1_votes = Voting.objects.get(id=8)
         option1_votes = option1_votes.votes
 
 
-        option2_votes = Voting.objects.get(id=2)
+        option2_votes = Voting.objects.get(id=9)
         option2_votes = option2_votes.votes
 
-        option3_votes = Voting.objects.get(id=3)
+        option3_votes = Voting.objects.get(id=10)
         option3_votes = option3_votes.votes
 
-        option4_votes = Voting.objects.get(id=4)
+        option4_votes = Voting.objects.get(id=11)
         option4_votes = option4_votes.votes
 
-        option5_votes = Voting.objects.get(id=5)
+        option5_votes = Voting.objects.get(id=13)
         option5_votes = option5_votes.votes
 
-        option6_votes = Voting.objects.get(id=6)
+        option6_votes = Voting.objects.get(id=14)
         option6_votes = option6_votes.votes
 
-        option7_votes = Voting.objects.get(id=7)
+        option7_votes = Voting.objects.get(id=16)
         option7_votes = option7_votes.votes
 
         total_votes = option1_votes + option2_votes + option3_votes + option4_votes + option5_votes + option6_votes + option7_votes
@@ -329,15 +382,16 @@ def voting(request):
         return render(request, "users/voting.html", {'user_profile': user_profile, 'today':today, 
         'current_time': current_time,'votes_object': votes_object, 'votes_count':votes_count, 'total_votes':total_votes
          })
-
+    
 
     else:
         if request.method == 'POST':
             form = VoteForm(request.POST)
             if form.is_valid():
                 vote = form.cleaned_data['vote']
+                vote_instance = Voting.objects.get(option=vote)
             
-                votes_object = Votes.objects.create(voter=request.user, option = vote, has_voted = True)
+                votes_object = UserVotes.objects.create(voter=request.user, chosen_option = vote_instance, has_voted = True)
 
                 chosen_option = Voting.objects.get(option=vote)
                 chosen_option.votes = chosen_option.votes+1
@@ -385,6 +439,9 @@ def add_course(request):
       
   
     if request.method == 'POST':
+
+        if not request.POST:
+            return redirect('add_course')
         course = request.POST['course']
         
         course = AvailableCourses.objects.get(course_name=course)
@@ -399,8 +456,15 @@ def add_course(request):
         messages.info(request, f"{course} course added ")
 
         return redirect('enrollment')
+    
     return render(request, "users/add_course.html", {'user_profile': user_profile, 'today':today, 'current_time': current_time, 'available_courses':available_courses})
 
+
+
+    
+    
+
+    
 
 
 

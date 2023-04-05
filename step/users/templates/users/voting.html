@@ -16,10 +16,9 @@
 
 
 
-
-    <b>{{vote_count.option}}</b> - Votes - 
-        {{vote_count.votes}}  
-
+    <div class="votes" id="votes{{vote_count.pk}}">
+        <b>{{vote_count.option}}</b> - Votes - <span id="number{{vote_count.pk}}">{{vote_count.votes}}  </span>
+    </div>
         <hr>
 
     {% endfor %}
