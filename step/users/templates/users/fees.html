@@ -10,32 +10,34 @@
                             <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th scope="col">Username</th>
+                                    <th scope="col">Balance</th>
+                                    <th scope="col">Paid</th>
                                     <th scope="col">Enrollment Fees</th>
                                     <th scope="col">Monthly Fees</th>
                                     <th scope="col">Course Fees</th>
                                     <th scope="col">Penalty</th>
-                                    <th scope="col">Balance</th>
-                                    <th scope="col">Paid</th>
-                                    <th scope="col">Pay now</th>
-                                    <th scope="col"></th>
+                                    
                                   </tr>
                                 </thead>
                                 <tbody>
 
                                     {% for request in fees_object %}
                                   <tr>
-                                    <th scope="row">{{request.user}}</th>
+                                    <td><bold>{{request.balance}}</bold></td>
+                                    <td>{{request.paid}}</td>                                    
                                     <td>{{request.enrollment_fees}}</td>
                                     <td>{{request.monthly_fees}}</td>
                                     <td>{{request.course_fees}}</td>
                                     <td>{{request.penalty}}</td>
-                                    <td><bold>{{request.balance}}</bold></td>
-                                    <td>{{request.paid}}</td>
+                                    
+                                  </tr>
+
+                                  <tr>
                                     <form method="POST">
-                                        {% csrf_token %}
-                                        <td><input name="payment" type="number"></td>
-                                        <td><button class="btn btn-outline-primary" type="submit">Pay</button></td>
+                                      {% csrf_token %}
+                                      <td><b>Pay Now</b></td>
+                                      <td><input name="payment" type="number"></td>
+                                      <td><button class="btn btn-outline-primary" type="submit">Pay</button></td>
                                     </form>
                                   </tr>
 

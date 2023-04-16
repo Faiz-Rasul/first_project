@@ -1,0 +1,69 @@
+{% extends "teachers/base.html" %}
+
+{% block title %} Request {% endblock %}
+
+<div>
+    {% block content %}
+    <br>
+
+
+    {% if get_requests %}
+    <table class="table request_table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Content</th>
+            <th scope="col">Response</th>
+            <th></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for request in get_requests %}
+            {% if request.has_responded == False %}
+
+
+
+          <form method="POST">
+            {% csrf_token %}
+            <tr>
+              <th scope="row">{{request.user}}</th>
+              <td>{{request.subject}}</td>
+              <td>{{request.content}}</td>
+              <input hidden name="request_id" value="{{request.id}}">
+              <td><input name="response" value='{{request.response}}'></td>
+
+            </tr>
+            <tr>
+              <td>
+                <button type="submit" class="btn-outline-danger">Reply!</button>
+              </td>
+            </tr>
+        </form>
+
+        {% else %}
+        <tr>
+          <th scope="row">{{request.user}}</th>
+          <td>{{request.subject}}</td>
+          <td>{{request.content}}</td>
+          <td>{{request.response}}</td>
+
+        </tr>
+        
+
+        {% endif %}
+      
+
+          {% endfor %}
+          
+        </tbody>
+      </table>
+
+      
+      {% else %}
+      <h1 style="color:rgb(228, 67, 67)">There are currently no requests</h1>
+      {% endif %}
+    {% endblock %}
+</div>

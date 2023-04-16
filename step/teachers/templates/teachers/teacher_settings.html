@@ -1,0 +1,39 @@
+{% extends "teachers/base.html" %}
+
+{% block title %} Settings {% endblock %}
+{% block heading %} Teacher Settings {% endblock %}
+
+<div>
+    {% block content %}
+
+    <form id="settings_form" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="profile_picture"> <img  src="{{user_type.profile_img.url}}">
+        <div class="form-group">
+            
+            <label for=""> Profile Image</label>
+            <input type="file" name="image"/>
+        </div>
+
+
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" class="form-control" name="address" id="address" placeholder="address"  value="{{user_type.address}}">
+        </div>
+
+        
+    
+        
+        <div class="form-group">
+            <label for="contact">Contact</label>
+            <input type="number" class="form-control" name="contact" id="contact" placeholder="Contact" value="{{user_type.contact}}">
+          </div>
+
+          
+        <br>
+        <button type="submit" class="btn btn-outline-primary">Save</button>
+      </form>
+
+    </div>
+    {% endblock %}
+</div>

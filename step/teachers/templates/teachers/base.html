@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'teachers/teacher_style.css' %}">
+    <script src="https://kit.fontawesome.com/76bcdcf8dd.js" crossorigin="anonymous"></script>
+
+
+    <title>{% block title %}Teacher{% endblock %}</title>
+</head>
+<body>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+<div class="box">
+    <div class="content">
+        <div class="nav">
+            <a href="/teacher_dashboard"><h2>ITMP </h2></a>  &nbsp;
+                <small>  V3.0 </small>
+
+                <a href="#"><i class="fa-solid fa-bars requests"></i></a> &nbsp; &nbsp; 
+                <a href="/teacher_requests"><i class="fa-regular fa-message "></i></a> &nbsp; &nbsp; 
+                <a href="/teacher_settings" title="Settings"><i class="fa-solid fa-gear"></i></a>  &nbsp; &nbsp; 
+
+                <div class="oval_div">
+                    <small> {{today}} April 14, 2023 |</small>  &nbsp; <small> {{current_time}} 04:31:24  |</small>
+                    <small> Welcome to ITMP 3.0 </small>
+                    {{now}} 
+                </div>
+
+                <dv class="profile_div">
+                    <a href="/teacher_profile/{{user}}">
+                        <img class="img-fluid " src="{{ user_type.profile_img.url }}">
+                        <span>Hi, {{user}}</span>
+
+                        <i class="fa-solid fa-caret-down"></i>
+                    </a>
+                    <a href="/teacher_logout">Logout</a>
+                </dv>
+        </div>
+        <!--nav div closed here-->
+
+        <br><br>
+            <div class="tehe">
+                <div class="vertical_nav nav">
+            
+                    <ul>
+                        <li class="text-center">Menu</li>
+                        <a href="/teacher_dashboard"><li><i class="fa-brands fa-slack"></i>  Dashboard</li></a>
+                        <a href="/add_course"><li><i class="fa-brands fa-slack"></i>  Add courses </li></a>
+                        <a href="/enrollment"><li><i class="fa-brands fa-slack"></i>  Enrollment </li></a>
+                        <a href="/fees"><li><i class="fa-brands fa-slack"></i>  Fee Voucher</li></a>
+                        <a href="/voting"><li><i class="fa-brands fa-slack"></i>  Voting</li></a>
+                        <a href="/teacher_profile/{{user}}"><li><i class="fa-brands fa-slack"></i>  Profile</li></a>
+                        <a href="/teacher_settings"><li><i class="fa-brands fa-slack"></i>  Settings</li></a>
+                        <a href="/teacher_requests"><li><i class="fa-brands fa-slack"></i>  Requests</li></a>
+                        <a href="/view_requests"><li><i class="fa-brands fa-slack"></i>  View Requests</li></a>
+                        <a href="/online_class"><li><i class="fa-brands fa-slack"></i>  Online Class</li></a>
+                        <a href="/exam"><li><i class="fa-brands fa-slack"></i>  Exam Schedule</li></a>
+                        <a href="#"><li><i class="fa-brands fa-slack"></i>Testing Module (beta)</li></a>
+                        <a href="#"><li><i class="fa-brands fa-slack"></i>  Real Enrollment</li></a>
+                        <a href="#"><li><i class="fa-brands fa-slack"></i>  Student Information form</li></a>
+                    </ul>
+                    
+                </div>
+                    <br>
+
+            
+                    
+                    <div class="right_side_main">
+                        <h2>{% block heading %} Dashboard {% endblock %}</h2>
+
+                        <small class="welcome">Welcome back, {{user}}!  </small>
+
+                        <br><br>
+                        <div class="notice">
+                                <small>Please note that the Teachers can only respond to requests between 10am to 4pm (Monday to Friday only)<br> <span>Account Title : ILMA UNIVERSITY Fees Payorder to be made in the name of ILMA UNIVERSITY- NTN NO: 1110000-9</span></small>
+                        </div>
+
+                        <hr>
+
+                            <div class="base_content">
+                                {% block content %}
+                            
+                                {% endblock %}
+                            </div>
+                    </div>
+
+            </div>
+                
+
+            
+    
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="{% static 'teachers/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

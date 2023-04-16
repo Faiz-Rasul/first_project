@@ -39,3 +39,19 @@ font-size: 20px;
 a .login_button:hover{
     background-color: black;
 }
+
+
+.login_button1{
+    background-color: #010444;
+    color: white;
+    border-radius: 50px;
+    height: 55px;
+    width: 100%;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    
+    }
+    
+    a .login_button1:hover{
+        background-color: black;
+    }

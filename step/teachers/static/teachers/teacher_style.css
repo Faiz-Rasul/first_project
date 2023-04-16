@@ -1,0 +1,356 @@
+
+
+.header{
+    margin-left: 30%;
+    margin-top: 20px;
+}
+
+.logo{
+    height: 70px;
+}
+
+
+.content-section{
+background-color: #555f78;
+height: auto;
+}
+
+
+.form-div{
+    width: 40%;
+    margin-left: 30%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+
+}
+
+.form-heading{
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size:25px;
+    padding-top: 20px;
+    padding-left: 50px;
+}
+
+.form label{
+    color:#b2c9ff;
+    font-weight: bold;
+    margin-right: 75px;
+    padding-left: 14%;
+
+}
+
+
+
+.form-input{
+    width: 70%;
+    height: 20px;
+    margin-top: 10px;
+    padding: 20px;
+    margin-left: 90px;
+}
+
+.helptext{
+    display:none;
+}
+
+.custom-button{
+    width: 60%;
+    height: 50px;
+    margin-left: 18%;
+}
+
+.form-p{
+    color:#a9c9ff;
+    margin-left: 10%;
+    margin-right: 10%;
+    
+}
+
+.footing{
+    color:#a9c9ff;
+    height: 100px;
+}
+
+
+
+
+
+
+.login-section{
+    background-color: black;
+    background-image: url("/static/login_bg.jpg");
+    height: 800px;
+    width: 100%;
+    position: absolute;
+}
+
+.teacher-form-div{
+    width: 32%;
+    margin-left: 35%;
+    background-color: white;
+    height: 300px;
+    
+   
+}
+
+.teacher-form-div form{
+    width: 80%;
+    margin-left: 10%;
+}
+
+.top-div{
+    padding-top: 7%;
+    width: 32%;
+    margin-left: 35%;
+    font-weight: bold;
+    color: white;   
+    background-color: black;
+    opacity: 80%;
+    margin-top: 180px;
+    height: 290px;
+}
+
+.footer-text{
+    margin-left: 35%;
+
+}
+
+.teacher-login{
+    width: 72%;
+    margin: 2px;
+}
+
+
+/* base css */
+
+
+.box{
+    background-image: url("/static/bg.jpg");
+    height: auto;
+}
+
+.content{
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+
+.nav{
+    
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.nav small{
+    margin-top:10px
+}
+
+.nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.requests {
+    margin-left:60px;
+}
+
+.oval_div{
+    background-color: #233554;
+    height: 40px;
+    margin-left: 10px;
+    width: 45%;
+    border-radius: 35px;
+}
+
+.oval_div small{
+    margin-left: 5%;
+    position: relative;
+    top: 6px;
+}
+
+.profile_div{
+    margin-left: 20%;
+}
+
+
+.profile_div img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px;
+    border-color: white;
+    border-style: double;
+}
+
+.vertical_nav{
+    width:15%;
+    height: auto;
+    background-color: black;
+    border-radius: 8px;
+    opacity: 20%;
+    float: left;
+    display: inline;
+}
+
+
+.vertical_nav ul { 
+    padding: 0; /* To remove default left padding */
+    
+    
+}
+
+.vertical_nav li{
+
+    color: white;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;
+
+    
+}
+
+.vertical_nav li:hover{
+    background-color:white;
+    opacity: 100%;
+    color:black;
+}
+
+.right_side_main{
+    width: 80%;
+    background-color:whitesmoke;
+    color: gray;
+    height:925px;
+    border-radius: 8px;
+    margin-top: -20px;
+    margin-left: 20px;
+    float: left;
+    vertical-align: top;
+ 
+
+}
+
+.tehe{
+    overflow: auto;
+}
+
+
+.right_side_main h2 {
+    padding-left: 20px;
+    padding-top: 20px;
+    
+}
+
+.welcome{
+    margin-left: 70%;
+
+}
+
+
+.right_side_main small>span{
+    color: red;
+}
+
+.notice{
+    width: 40%;
+    margin-left: 40%;
+}
+
+.base_content{
+    margin-left :30px;
+    margin-right: 30px;
+}
+
+
+/*profile page*/
+.profile_picture{
+    margin-left: 2%;
+}
+
+
+.profile_picture img{
+    border-color: white;
+    border-style: groove;
+    border-width: 4px;
+    max-height: 400px;
+    max-width: 200px;
+    
+}
+
+/*profile page end*/
+
+
+.request_table td{
+    width: 10%;
+}
+
+
+
+
+
+
+@media screen and (max-width: 700px) {
+    .oval_div{
+        display: none;
+    }
+
+    .profile_div{
+        margin-left: 20%;
+    }
+
+    .requests{
+        margin-left: 0%;
+    }
+
+    .vertical_nav{
+        width: 98%;
+    }
+
+    .right_side_main{
+        
+    margin-top: 0;
+    width: 98%;
+    margin-top:10px;
+    margin-left: 0;
+
+    }
+
+    .welcome{
+        margin-left: 50%;
+    }
+
+
+    .notice{
+        margin-left: 10%;
+    }
+    
+    .profile_picture{
+        margin-left: 35%;
+    }
+
+
+
+  }
+
+
+  @media screen and (max-width: 1250px) and (min-width: 701px) {
+    
+
+    .profile_div{
+        margin-left: 0%;
+    }
+
+    .requests{
+        margin-left: 0%;
+    }
+
+    .welcome{
+        display: none;
+    }
+
+
+    .notice{
+        margin-left: 2%;
+    }
+  }

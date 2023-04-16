@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'teachers/teacher_style.css' %}">
+    <script src="https://kit.fontawesome.com/76bcdcf8dd.js" crossorigin="anonymous"></script>
+
+
+    <title>Teacher Login</title>
+</head>
+<body>
+    {% load crispy_forms_tags %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+{% endif %}
+
+{% if user.is_authenticated %}
+
+You are already logged in as {{user}} go to <a href="/teacher_dashboard">dashboard. </a>
+
+{% else %}
+
+<div class="login-section">
+    <div class="text-center top-div">
+        <a href="/"><img src="{%static 'biztek.png'%}"></a>
+        <h2 class=" login-heading"> ILMA Teaching & Management Portal (ITMP)</h2>
+
+    </div>
+    <div class="teacher-form-div">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">
+                </legend>
+                {{ form|crispy }}
+            </fieldset>
+                <br>
+            <div class="form-group">
+                <button class="btn btn-primary teacher-login" type="submit">Login</button>
+                <a class="ml-2" href="{% url 'teacher_register' %}"><button class="btn btn-primary teacher-login" type="button">Don't have an account?</button></a>
+            </div>
+
+            <span class="text-muted">Terms and conditions applied</span>
+        </form>
+    </div>
+            
+            
+       
+    {% endif %}
+
+</div>
+
+
+    <script src="{% static 'teachers/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

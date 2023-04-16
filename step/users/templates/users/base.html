@@ -34,7 +34,7 @@
 
                 
                 <a href="#"><i class="fa-solid fa-bars requests"></i></a> &nbsp; &nbsp; 
-                <a href="#"><i class="fa-regular fa-message "></i></a> &nbsp; &nbsp; 
+                <a href="/request"><i class="fa-regular fa-message "></i></a> &nbsp; &nbsp; 
                 <a href="/settings" title="Settings"><i class="fa-solid fa-gear"></i></a>  &nbsp; &nbsp; 
 
                 <div class="oval_div">
@@ -50,7 +50,7 @@
 
                         <i class="fa-solid fa-caret-down"></i>
                     </a>
-                    <a href="/logout">Logout</a>
+                    <a href="/student_logout">Logout</a>
                 </dv>
         </div>  
                 <br>   <br>
@@ -60,8 +60,7 @@
 
 
             <!--vertical nav-->
-            <div class="row">
-                <div class="col-lg-2">
+            <div class="responsive">
                     <div class="vertical_nav nav">
                 
                         <ul>
@@ -85,40 +84,39 @@
                     </div>
                         <br>
 
-                    {% block nav %}
-                    
-                    {% endblock %}
-                    
-                </div>
 
-                <div class="col-lg-10">
+                    
+                
+
                     <div class="right_side_main">
                         
-                        <div class="content">
                             <h2>{% block heading %} Dashboard {% endblock %}</h2>
 
                             <small class="welcome">Welcome back, {{user}}!  </small>
 
                             <br><br>
                             <div class="notice">
-                                    <small>Please note that the Students can only apply for requests between 10am to 4pm (Monday to Friday only)<br> <span>Account Title : ILMA UNIVERSITY Fees Payorder to be made in the name of ILMA UNIVERSITY- NTN NO: 2840797-7</span></small>
+                                    <small>Please note that the Students can only apply for requests between 10am to 4pm (Monday to Friday only)<br> <span>Account Title : ILMA UNIVERSITY Fees Payorder to be made in the name of ILMA UNIVERSITY- NTN NO: 1110000-9</span></small>
                             </div>
 
                             <hr>
-
-                                <div>
+                            
+                                <div class="base_content">
+                                    
                                     {% block content %}
                                 
                                     {% endblock %}
                                 </div>
-                        </div>
+                        
                     </div>
 
-                </div>
+                
             </div>
 
 
-             
+            {% block nav %}
+                    
+            {% endblock %}
 
 
 

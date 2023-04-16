@@ -110,7 +110,7 @@ body{
 }
 
 .profile_div{
-    margin-left: 18%    ;
+    margin-left: 20%;
 }
 
 
@@ -126,25 +126,27 @@ body{
 }
 
 .vertical_nav{
-    width:230px;
+    width:15%;
     height: auto;
     background-color: black;
     border-radius: 8px;
     opacity: 20%;
+    float: left;
+    display: inline;
 }
 
 
 .vertical_nav2{
-    width:230px;
+    width:15%;
     height: auto;
     background-color: black;
     border-radius: 8px;
     opacity: 40%;
-
+    position: relative;
+    top: -240px;
 }
 
 .vertical_nav2 ul {
-    margin: 0; /* To remove default bottom margin */ 
     padding: 0; /* To remove default left padding */
     
 }
@@ -153,7 +155,6 @@ body{
 
 
 .vertical_nav ul {
-    margin: 0; /* To remove default bottom margin */ 
     padding: 0; /* To remove default left padding */
     
 }
@@ -183,8 +184,6 @@ body{
     padding-top: 10px;
     padding-bottom: 10px;
     text-decoration: none;
-    list-style: none;
-    width: 100%;
 }
 
 .vertical_nav li:hover{
@@ -194,25 +193,32 @@ body{
 }
 
 .right_side_main{
+    width: 80%;
     background-color:whitesmoke;
-    height:972px;
-    width: 100%;
-    border-radius: 8px;
-}
-
-.content{
     color: gray;
-    height: 600px;
-    margin: 20px;
-    position: absolute;
+    height:925px;
+    border-radius: 8px;
+    margin-top: -20px;
+    margin-left: 20px;
+    
+    float: left;
+    vertical-align: top;
+ 
+
+}
+
+.responsive{
+    overflow: auto;
 
 }
 
 
 
-.content h2 {
+.right_side_main h2 {
     color: gray;
     display: inline;
+    padding-left: 20px;
+    
 }
 
 .welcome{
@@ -222,13 +228,18 @@ body{
 
 
 
-.content small>span{
+.right_side_main small>span{
     color: red;
 }
 
 .notice{
     width: 40%;
-    margin-left: 50%;
+    margin-left: 40%;
+}
+
+.base_content{
+    margin-left :30px;
+    margin-right: 30px;
 }
 
 
@@ -259,3 +270,86 @@ body{
 .votes{
     padding: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 700px) {
+    .oval_div{
+        display: none;
+    }
+
+    .profile_div{
+        margin-left: 20%;
+    }
+
+    .requests{
+        margin-left: 0%;
+    }
+
+    .vertical_nav{
+        width: 98%;
+    }
+
+    .right_side_main{
+        
+    margin-top: 0;
+    width: 98%;
+    margin-top:10px;
+    margin-left: 0;
+
+    }
+
+    .welcome{
+        margin-left: 50%;
+    }
+
+
+    .notice{
+        margin-left: 10%;
+    }
+    
+    .profile_picture{
+        margin-left: 35%;
+    }
+
+    .vertical_nav2{
+        position: static;
+        margin-top: 20px;
+        width: 98%;
+    }
+
+
+  }
+
+
+  @media screen and (max-width: 1250px) and (min-width: 701px) {
+    
+
+    .profile_div{
+        margin-left: 0%;
+    }
+
+    .requests{
+        margin-left: 0%;
+    }
+
+    .welcome{
+        display: none;
+    }
+
+
+    .notice{
+        margin-left: 2%;
+    }
+
+    .vertical_nav2{
+        top:-70px
+    }
+  }

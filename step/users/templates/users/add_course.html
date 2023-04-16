@@ -12,8 +12,8 @@
             <h3>Available courses for {{user_profile.degree_title}} students </h3>
             {% if available_courses %}
 
-            <form action="" method="POST">
-                {% csrf_token %}
+
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -27,12 +27,15 @@
                         
                             
                             {% for course in available_courses %}
+                            <form action="" method="POST">
+                                {% csrf_token %}
                             <tr>
                                 <td><input type="text" hidden name="course" value="{{course.course_name}}">{{course.course_name}}</td>
                                 <td>{{course.course_for}}</td>
                                 <td>{{course.course_time}}</td>
                                 <td><button class=" btn  btn-sm btn-outline-secondary" type="submit">Add Course!</button></td>
                             </tr>
+                            </form>
                             {% endfor %}
                            
 
@@ -43,7 +46,7 @@
                                 
                     </table>
                               
-            </form>
+            
 
             
             {% else %}

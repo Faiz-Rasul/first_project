@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 
 
-
 # Create your models here.
 
 class OtherRequests(models.Model):
@@ -13,6 +12,7 @@ class OtherRequests(models.Model):
     content = models.CharField(max_length=150)
     created_at = models.DateTimeField(default=datetime.now)
     response = models.CharField(max_length=150, default='Response Pending')
+    has_responded = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user
@@ -20,10 +20,12 @@ class OtherRequests(models.Model):
 
 class UserInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    degree_title = models.CharField(max_length=20, blank=False, default='bscs')
+    degree_title = models.CharField(max_length=20, blank=True, default='bscs')
     address = models.CharField(max_length=50)
     profile_img = models.ImageField(upload_to='profile_images', default='blank-profile-picture.png')
     contact = models.CharField(max_length=20)
+    is_student = models.BooleanField(blank=False, default=True)
+    is_teacher = models.BooleanField(blank=False, default=False)
 
     def __str__(self):
         return self.user.username
@@ -80,4 +82,4 @@ class UserVotes(models.Model):
     has_voted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.voter
+        return self.voter.username
