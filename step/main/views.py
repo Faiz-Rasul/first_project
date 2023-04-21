@@ -11,7 +11,13 @@ def index(request):
 
 
     if request.user.is_authenticated:
-        return redirect('dashboard')
+        user_obj = UserInfo.objects.get(user=request.user)
+
+        if user_obj.is_student == True:
+            return redirect('dashboard')
+
+        elif user_obj.is_teacher == True:
+            return redirect('teacher_dashboard')
 
     else:    
         return render(request, 'main/index.html')

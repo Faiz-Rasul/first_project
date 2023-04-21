@@ -6,9 +6,11 @@ from datetime import date
 from datetime import datetime
 from django.contrib.auth import authenticate, login
 from .models import OtherRequests, UserInfo, AvailableCourses, Enrollment, Fees, Voting,  UserVotes
+from posts.models import Post, PostLikes, Comments
 from django.db.models import Q
 from django.contrib.auth.models import User
 import random
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -72,11 +74,18 @@ def dashboard(request):
 
 
         fees_object = Fees.objects.get(user=request.user)
+        likes = PostLikes.objects.filter(user=request.user)
+        comments = Comments.objects.all()
+
+        p = Paginator(Post.objects.all().order_by('-id'), 8)
+        page = request.GET.get('page')
+        posts = p.get_page(page)
 
         current_time = now.strftime("%H:%M:%S")
         
         return render(request, 'users/dashboard.html', {'today':today, 'current_time': current_time, 
-        'user_profile':user_profile, 'fees_object':fees_object})
+        'user_profile':user_profile, 'fees_object':fees_object, 'posts':posts, 'likes':likes,
+        'comments':comments,})
 
 @login_required(login_url='student_login')
 def request(request):
@@ -126,11 +135,10 @@ def view_requests(request):
 
         current_time = now.strftime("%H:%M:%S")
 
-        request_object = OtherRequests.objects.all()
 
         current_user = request.user
 
-        current_user_object = OtherRequests.objects.filter(user=current_user)
+        current_user_object = OtherRequests.objects.filter(user=current_user).order_by('-id')
         
 
 
@@ -512,3 +520,7 @@ def add_course(request):
 
 
 
+
+
+
+    

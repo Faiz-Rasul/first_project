@@ -92,19 +92,19 @@ body{
 }
 
 .requests {
-    margin-left: 90px;
+    margin-left: 60px;
 }
 
 .oval_div{
     background-color: #233554;
     height: 40px;
     margin-left: 10px;
-    width: 50%;
+    width: 45%;
     border-radius: 35px;
 }
 
 .oval_div small{
-    margin-left: 40px;
+    margin-left: 5%;
     position: relative;
     top: 6px;
 }
@@ -143,7 +143,7 @@ body{
     border-radius: 8px;
     opacity: 40%;
     position: relative;
-    top: -240px;
+    top: -200px;
 }
 
 .vertical_nav2 ul {
@@ -196,11 +196,10 @@ body{
     width: 80%;
     background-color:whitesmoke;
     color: gray;
-    height:925px;
+    height:auto;
     border-radius: 8px;
     margin-top: -20px;
     margin-left: 20px;
-    
     float: left;
     vertical-align: top;
  
@@ -272,9 +271,23 @@ body{
 }
 
 
+.card_card{
+    width: 80%;
+    margin-left: 9%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 
+}
 
+.card_card a{
+    color:black;
+    text-decoration: none;
+}
+
+.comment_card{
+    width: 90%;
+    margin-left: 5%;
+}
 
 
 
@@ -301,6 +314,7 @@ body{
         
     margin-top: 0;
     width: 98%;
+    height: auto;
     margin-top:10px;
     margin-left: 0;
 
@@ -350,6 +364,6 @@ body{
     }
 
     .vertical_nav2{
-        top:-70px
+        display: none;
     }
   }

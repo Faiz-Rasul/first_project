@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from . forms import TeacherRegistrationForm
 from users.models import UserInfo, User, OtherRequests
+from posts.models import Post, PostLikes, Comments
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -68,7 +70,18 @@ def teacher_dashboard(request):
         return redirect('dashboard')
     
     else:
-        return render(request, "teachers/teacher_dashboard.html", {'user_type':user_type})
+        #posts = Post.objects.all().order_by('-id')
+        likes = PostLikes.objects.filter(user=request.user)
+
+        p = Paginator(Post.objects.all().order_by('-id'), 8)
+        page = request.GET.get('page')
+        posts = p.get_page(page)
+
+        comments = Comments.objects.all()
+
+        return render(request, "teachers/teacher_dashboard.html", {'user_type':user_type, 'posts':posts
+                        ,'likes':likes, 'comments':comments})
+
 
 @login_required(login_url='teacher_login')
 def teacher_profile(request,u):
@@ -137,7 +150,7 @@ def teacher_requests(request):
         return redirect('dashboard')
     
     else:
-        get_requests = OtherRequests.objects.all()
+        get_requests = OtherRequests.objects.all().order_by('-id')
 
         if request.method == 'POST':
             response = request.POST['response']
@@ -152,11 +165,5 @@ def teacher_requests(request):
 
 
         return render(request, "teachers/teacher_requests.html", {'user_type':user_type, 'get_requests':get_requests})
-
-
-
-
-
-
 
 

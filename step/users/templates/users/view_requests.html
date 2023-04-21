@@ -25,7 +25,15 @@
                                     <th scope="row">{{request.user}}</th>
                                     <td>{{request.subject}}</td>
                                     <td>{{request.content}}</td>
+
+                                    {% if request.response == 	"Response Pending" %}
+                                    
+                                    <td>{{request.response}}&nbsp;<i class="fa-sharp fa-regular fa-calendar-xmark"></i></td>
+
+                                    {% else %}
+                                    
                                     <td>{{request.response}}</td>
+                                    {% endif %}
                                   </tr>
 
                                   {% endfor %}

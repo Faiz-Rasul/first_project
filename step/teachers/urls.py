@@ -9,7 +9,7 @@ urlpatterns = [
     path("teacher_dashboard", views.teacher_dashboard, name='teacher_dashboard'),
     path("teacher_profile/<str:u>/", views.teacher_profile, name='teacher_profile'),
     path("teacher_settings/", views.teacher_settings, name='teacher_settings'),
-    path("teacher_requests", views.teacher_requests, name='teacher_requests'),
+    path("teacher_requests/", views.teacher_requests, name='teacher_requests'),
     
 
 ]
