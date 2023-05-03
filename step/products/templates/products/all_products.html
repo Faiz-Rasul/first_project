@@ -1,0 +1,58 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} All Products {% endblock %}
+{% block heading %} All Products {% endblock %}
+
+<div>
+    {% block content %}
+
+    <div class="content">
+
+        <div class="row">
+
+
+            {% for product in products %}
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card product_box" style="width: 18rem;">
+                    <img class="card-img-top product_image" src="{{product.product_image.url}}" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">{{product.product_name}}</h5>
+                      <p class="card-text">{{product.product_category }}</p>
+                      <b><p class="card-text">${{product.product_price }}</p></b>
+                      <p class="card-text">Items Remaining: {{product.items_remaining}}</p>
+
+                    {% if product.items_remaining == 0 %}
+                        <p>Sold out</p> 
+
+
+                    {% else %}
+
+                            
+                        <form method="POST" id="add_to_cart{{product.id}}">
+                            {% csrf_token %}
+                                <input hidden name="product_id" value="{{product.id}}">
+                                    
+                                <button type="submit" class="btn btn-primary">Add to cart</button>
+                        </form>
+
+                    {% endif %}
+
+                    </div>
+                  </div>
+
+                  <br> <br>
+            </div>
+            
+            {% endfor %}
+        </div>
+
+        <a href="/my_cart" class="btn btn-outline-success cart_button"><i class="fa-solid fa-cart-shopping"></i> {{items}}</a>
+    </div>
+
+    
+
+    <br><br>
+
+    {% endblock %}
+</div>

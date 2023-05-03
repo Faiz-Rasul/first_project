@@ -1,0 +1,60 @@
+{% extends "teachers/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} My Orders {% endblock %}
+{% block heading %} My Orders {% endblock %}
+
+<div>
+    {% block content %}
+
+    <div class="content">
+
+        
+
+        <div class="row">
+
+            <h2 class="text-center">My Orders</h2>
+            {% if orders == 1 %}
+            <p style="color:red;">You have not placed any orders yet, you can go to the products page and place your first order. </p>
+            <br><br>
+            {% else %}
+            {% for item in orders %}
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card product_box" style="width: 18rem;">
+                    <img class="card-img-top product_image" src="{{item.product.product_image.url}}" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">{{item.product.product_name}}</h5>
+                      <b><p class="card-text"><i class="fa-solid fa-dollar-sign"></i> {{item.total_price }}  </p></b>
+                      <b><p class="card-text">Quantity: {{item.number_of_items }}</p></b>
+                      <b><p class="card-text"><i class="fa-solid fa-calendar-days"> </i> {{item.date_created }} </p></b>
+
+                    {% if item.is_completed == True %}
+                        <b><p class="card-text">Status: Order Completed</p></b>
+                    {% else %}
+                    <b><p class="card-text">Status: Order Pending</p></b>
+                    {% endif %}
+                    </div>
+                </div>
+
+                  <br> <br>
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+            
+        </div>
+
+        
+
+        <a href="/all_products" class="btn btn-outline-success cart_button">All Products</a>
+
+    </div>
+
+    
+
+    <br><br>
+
+    {% endblock %}
+</div>

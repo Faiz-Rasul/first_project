@@ -1,0 +1,115 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} My Cart {% endblock %}
+{% block heading %} My Cart {% endblock %}
+
+<div>
+    {% block content %}
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Shipping Details</h2>
+                <h5>Reciever:</h5>
+                {{user}} <br> <br>
+                
+                <h5>Address</h5>
+                {{user_type.address}} <br><br>
+
+                <h5>Contact</h5>
+                {{user_type.contact}} <br><br>
+
+                <h5>Email</h5>
+                {{user.email}}
+                <hr>
+            </div>
+
+        </div>
+        {% if cart %}
+            <h2 class="text-center">Cart Item(s)</h2>
+            <a href="/empty_cart" style="margin-left: 80%;" class="btn btn-danger"> Empty Cart</a>
+
+        {% else %}
+            <h2 class="text-center">Cart Empty</h2>
+        {% endif %}
+
+
+        <br><br>
+        <div class="row">
+
+
+            {% for item in cart %}
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card product_box" style="width: 18rem;">
+                    <img class="card-img-top product_image" src="{{item.product.product_image.url}}" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">{{item.product.product_name}}</h5>
+                      <p class="card-text">{{item.product.product_category }}</p>
+                      <b><p class="card-text">${{item.total_price }}</p></b>
+                            <form style="display: inline;" method="POST" action="decrement">
+                                {% csrf_token %}
+                                <input hidden name="product_id" value="{{item.product.id}}">
+                                
+
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button> &nbsp; {{item.number_of_items}}&nbsp;
+
+                            </form>
+
+                                {% if item.number_of_items == item.product.items_remaining %}
+                                <button disabled title="Can't add more" class="btn btn-outline-secondary"><i class="fa-solid fa-plus"></i></button>
+                           
+
+                                {% else %}
+                            <form style="display: inline-block;" method="POST" action="increment">
+                                {% csrf_token %}
+                                <input hidden name="product_id" value="{{item.product.id}}">
+                                
+                                
+                                <button type="submit"  class="btn btn-outline-danger">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                            
+                    </div>
+                  </div>
+
+                  <br> <br>
+            </div>
+
+            
+            
+            {% endfor %}
+
+           
+            
+        </div>
+
+        {% if cart %}
+        <form method="POST" action="my_orders">
+            {% csrf_token %}
+            <button class="btn btn-outline-success cart_button">
+                Checkout
+            </button>
+        </form>
+        {% endif %}
+        
+        
+
+   
+
+    </div>
+
+    
+
+    <br><br>
+
+    {% endblock %}
+
+    
+</div>
+

@@ -213,7 +213,7 @@ body{
 
 
 
-.right_side_main h2 {
+.main_heading {
     color: gray;
     display: inline;
     padding-left: 20px;
@@ -289,7 +289,18 @@ body{
     margin-left: 5%;
 }
 
-
+.product_box{
+    height: 500px;
+   }
+   
+.product_image{
+       height: 300px;
+   }
+   
+.cart_button{
+       margin-left: 10%;
+       width: 70%;
+   }
 
 
 

@@ -1,0 +1,22 @@
+{% extends "teachers/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Add Products {% endblock %}
+{% block heading %} Add Products {% endblock %}
+
+<div>
+    {% block content %}
+
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form | crispy}}
+
+
+            <br>
+        <button class="btn btn-primary" type="submit">Add Product</button>
+    </form>
+
+    <br><br>
+
+    {% endblock %}
+</div>

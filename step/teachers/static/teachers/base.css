@@ -185,7 +185,18 @@ body{
     width: 10%;
 }
 
+.product_box{
+ height: 500px;
+}
 
+.product_image{
+    height: 300px;
+}
+
+.cart_button{
+    margin-left: 10%;
+    width: 70%;
+}
 
 
 
