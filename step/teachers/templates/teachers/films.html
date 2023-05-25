@@ -1,0 +1,29 @@
+{% extends "teachers/base.html" %}
+
+{% block title %} Cafeteria {% endblock %}
+{% block heading %} Cafeteria {% endblock %}
+
+<div>
+    {% block content %}
+
+    <form>
+        {% csrf_token %}
+            <input type="text" name="filmname" placeholder="Enter a new film">
+            <button hx-post="{% url 'film_list' %}" hx-target="#film_list" type="submit">Add</button> 
+    </form>
+
+    <hr/>
+
+    <div id="film_list">
+        {% include 'teachers/partials/film_list.html' %}
+
+    </div>
+
+
+    
+
+
+    
+    
+    {% endblock %}
+</div>

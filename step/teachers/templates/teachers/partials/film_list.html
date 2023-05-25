@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-between">
+
+    <section class="col-6">
+
+    
+        {% if films %}
+        
+            {% csrf_token %}
+            <ul class="list-group col-xs-12">
+            {% for film in films %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ film.name }}
+                    <span 
+                        style=" color: red; cursor: pointer;"
+                        hx-delete="{% url 'delete_film' film.pk %}"
+                        hx-target="#film_list">X</span>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>You do not have any films in your list</p>
+        {% endif %}
+    
+    </section>
+    
+    <section class="col-4 offset-1">
+        {% include 'teachers/partials/search.html' %}
+    </section>
+    </div>
+    
+
+{% if request.method == 'POST' %}
+<input type="text"
+    hx-swap-oob="true"
+    id="filmname-input"
+    name="filmname" 
+    class="form-control-sm mr-2" 
+    placeholder="Enter a film" />
+{% endif %}

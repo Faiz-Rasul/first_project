@@ -21,3 +21,8 @@ urlpatterns = [
     path("online_class/", views.online_class, name='online_class'),
 
 ]
+
+htmx_urlpatterns = [
+]
+
+urlpatterns += htmx_urlpatterns

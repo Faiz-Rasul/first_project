@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
+import random
 from django.contrib import messages
 from . forms import TeacherRegistrationForm
 from users.models import UserInfo, User, OtherRequests
 from posts.models import Post, PostLikes, Comments
+from .models import Film
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator
 
 
@@ -151,19 +154,72 @@ def teacher_requests(request):
     
     else:
         get_requests = OtherRequests.objects.all().order_by('-id')
-
-        if request.method == 'POST':
-            response = request.POST['response']
-            request_id = request.POST['request_id']
-
-            request_model = OtherRequests.objects.get(id=request_id)
-            request_model.response = response
-            request_model.has_responded = True
-            request_model.save()
-
-            return render(request, "teachers/teacher_requests.html", {'user_type':user_type, 'get_requests':get_requests})
-
-
         return render(request, "teachers/teacher_requests.html", {'user_type':user_type, 'get_requests':get_requests})
+
+
+@login_required(login_url='/')
+def request_partial(request):
+
+    if request.method == 'POST':
+
+        response = request.POST['response']
+        request_id = request.POST['request_id'] 
+        request_response = OtherRequests.objects.get(id=request_id)
+        request_response.response = response
+        request_response.has_responded = True
+        request_response.save()
+        message = "~Responded Successfully."
+          
+        get_requests = OtherRequests.objects.all().order_by('-id')
+
+        return render(request, "teachers/partials/request_partial.html", {'get_requests':get_requests, 'message': message})
+
+
+
+
+
+@login_required(login_url='/')
+def films(request):
+    user_type = UserInfo.objects.get(user = request.user)
+    if user_type.is_student == True:
+        messages.error(request, "Students are not authorized to access this page")
+        return redirect('/')
+    
+    else:
+        films = Film.objects.all()
+
+        return render(request, 'teachers/films.html', {'user_type': user_type, 'films':films})
+    
+
+
+@login_required(login_url='/')
+def film_list(request):
+    if request.method == 'POST':
+        name = request.POST['filmname']
+        film = Film.objects.create(name=name, user = request.user)
+        films = Film.objects.all()
+        
+        return render(request, "teachers/partials/film_list.html", {'films':films})
+
+
+@login_required(login_url='/')
+@require_http_methods(['DELETE'])
+def delete_film(request, pk):
+
+    delete_film = Film.objects.get(id=pk)
+    delete_film.delete()
+    films = Film.objects.all()
+    return render(request, "teachers/partials/film_list.html", {'films':films})
+
+
+@login_required(login_url='/')
+def search_film(request):
+    search_text = request.POST['search']
+
+    results = Film.objects.filter(name__icontains= search_text)
+
+    return render(request, "teachers/partials/search_results.html", {'results': results,} )
+
+
 
 

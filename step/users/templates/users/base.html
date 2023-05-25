@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{% static 'users/register_style.css' %}">
     <script src="https://kit.fontawesome.com/76bcdcf8dd.js" crossorigin="anonymous"></script>
 
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+
     <title>{% block title %} Dashboard {% endblock %}</title>
 </head>
 <body>
@@ -69,7 +71,6 @@
                             <a href="/add_course"><li><i class="fa-brands fa-slack"></i>  Add courses </li></a>
                             <a href="/enrollment"><li><i class="fa-brands fa-slack"></i>  Enrollment </li></a>
                             <a href="/fees"><li><i class="fa-brands fa-slack"></i>  Fee Voucher</li></a>
-                            <a href="/voting"><li><i class="fa-brands fa-slack"></i>  Voting</li></a>
                             <a href="/settings"><li><i class="fa-brands fa-slack"></i>  Settings</li></a>
                             <a href="/request"><li><i class="fa-brands fa-slack"></i>  Requests</li></a>
                             <a href="/view_requests"><li><i class="fa-brands fa-slack"></i>  View Requests</li></a>
@@ -136,5 +137,14 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+    </script>
+
+
+
 </body>
 </html>

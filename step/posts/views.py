@@ -5,6 +5,8 @@ from users.models import UserInfo
 from datetime import date
 from datetime import datetime
 from .models import Post, PostLikes, Comments
+from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
 from django.core.paginator import Paginator
 
 
@@ -125,15 +127,13 @@ def delete_post(request):
 
 
 @login_required(login_url='/')
-def delete_comment(request):
-    if request.method == 'POST':
-        comment_id = request.POST['comment_id']
+@require_http_methods(['DELETE'])
+def delete_comment(request, u):
 
-        delete_comment = Comments.objects.get(id=comment_id)
-        delete_comment.delete()
-        
-
-        return redirect('/')
+    delete_comment = Comments.objects.get(id=u)
+    delete_comment.delete()
+    comments = Comments.objects.all()
+    return render(request,'posts/partials/comment_partial.html', {'comments':comments, })
 
 @login_required(login_url='/')
 def edit_post(request, u):

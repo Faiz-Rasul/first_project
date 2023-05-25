@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from users.models import UserInfo
@@ -61,6 +61,34 @@ def all_products(request):
     for item in cart:
         items = items+1
 
+    
+
+    if user_type.is_student == True:
+        user_profile = UserInfo.objects.get(user=request.user)
+        today = date.today()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        return render(request, 'products/all_products.html', {'user_profile':user_profile, 'today':today,
+                        'products': products, 'current_time': current_time, 'items': items})
+
+    else:
+        return render(request, 'products/teacher_all_products.html', {'user_type':user_type,
+                        'items':items, 'products': products, 'cart':cart,})
+
+
+
+
+@login_required(login_url='/')
+def add_to_cart_htmx(request):
+    cart = Cart.objects.filter(user=request.user)
+    products = Products.objects.all()
+
+    items = 0
+    message = ""
+
+    for item in cart:
+        items = items+1
+
     if request.method == 'POST':
         user = request.user
         product = request.POST['product_id']
@@ -77,28 +105,29 @@ def all_products(request):
                 product_cart.number_of_items = product_cart.number_of_items+1
                 product_cart.total_price = product_cart.total_price + product_obj.product_price 
                 product_cart.save()
+                message = "Item already in cart, quantity increased"
 
             else:
-                messages.warning(request, f"{product_obj.product_name} can't be added anymore, more stock isn't available")
+                message = "Can't be added anymore, more stock isn't available"
 
 
         else:
 
             add_to_cart = Cart.objects.create(user=user, product=product_obj, number_of_items=number_of_items, total_price=total_price)
-            messages.info(request, f"{product_obj.product_name} added to the cart")
-            return redirect('all_products')
+            items = items + 1
+            message =  "Added to the cart"
+ 
+        
+    return render(request, "products/partials/add_to_cart_htmx.html", {'items':items, 'message': message,
+                'products': products,})
 
-    if user_type.is_student == True:
-        user_profile = UserInfo.objects.get(user=request.user)
-        today = date.today()
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        return render(request, 'products/all_products.html', {'user_profile':user_profile, 'today':today,
-                        'products': products, 'current_time': current_time, 'items': items})
 
-    else:
-        return render(request, 'products/teacher_all_products.html', {'user_type':user_type,
-                        'items':items, 'products': products, 'cart':cart,})
+
+def clear(request):
+    return HttpResponse("")
+
+
+
 
 
 @login_required(login_url='/')
@@ -133,6 +162,23 @@ def my_cart(request):
 
 
 
+def delete_from_cart(request):
+    if request.method == 'POST':
+        product_id = request.POST['product_id']
+        product_obj = Products.objects.get(id = product_id)
+        cart = Cart.objects.filter(user=request.user)
+
+        delete_item = Cart.objects.get(user=request.user,product = product_obj)
+        delete_item.delete()
+
+        message = f"{product_obj.product_name} removed from Cart."
+
+
+
+        return render(request, "products/partials/my_cart_partial.html", { 'cart':cart, 'message': message,})
+
+
+
 @login_required(login_url='/')
 def my_orders(request):
     user_type = UserInfo.objects.get(user=request.user)
@@ -157,6 +203,7 @@ def my_orders(request):
                 # decrease number of products from product table 
                 product_obj = Products.objects.get(id=product.id)
                 product_obj.items_remaining = product_obj.items_remaining - number_of_items
+                product_obj.items_sold = product_obj.items_sold+number_of_items
                 product_obj.save()
 
         messages.info(request, "Your order has been placed sucessfully")
@@ -168,9 +215,6 @@ def my_orders(request):
 
         if Orders.objects.filter(user=request.user):
             orders = Orders.objects.filter(user=request.user)
-
-
-
 
 
         if user_type.is_student == True:
@@ -200,7 +244,9 @@ def increment(request):
         cart_obj.number_of_items = cart_obj.number_of_items + 1
         cart_obj.total_price = cart_obj.total_price + product_obj.product_price
         cart_obj.save()
-    return redirect('my_cart')
+        cart = Cart.objects.filter(user = request.user)
+ 
+    return render(request, "products/partials/my_cart_partial.html", {'cart':cart,})
 
 
 
@@ -214,18 +260,13 @@ def decrement(request):
         product_obj = Products.objects.get(id=product_id)
         cart_obj = Cart.objects.get(user=request.user, product = product_obj)
 
-        #check if product quantity is 1 in whihc case we'll just delete the object
-        if cart_obj.number_of_items == 1:
-            cart_obj.delete()
-            messages.info(request, f"Removed {product_obj.product_name} from cart")
-            return redirect('my_cart')
-
-
+    
         cart_obj.number_of_items = cart_obj.number_of_items - 1
         cart_obj.total_price = cart_obj.total_price - product_obj.product_price
         cart_obj.save()
+        cart = Cart.objects.filter(user = request.user)
  
-    return redirect('my_cart')
+    return render(request, "products/partials/my_cart_partial.html", {'cart':cart,})
 
 
 
@@ -248,10 +289,63 @@ def empty_cart(request):
 
 
 
+@login_required(login_url='/')
+def search_product(request):
+    search_query = request.GET.get('q')
+    user_type = UserInfo.objects.get(user=request.user)
+    cart = Cart.objects.filter(user=request.user)
+    products = Products.objects.filter(product_name__icontains = search_query)
+
+    items = 0
+
+    for item in cart:
+        items = items+1
+
+
+    if request.method == 'POST':
+        user = request.user
+        product = request.POST['product_id']
+        product_obj = Products.objects.get(id=product)
+        number_of_items = 1
+        total_price = product_obj.product_price
+        
+
+
+        if Cart.objects.filter(user=user,product=product_obj):
+            product_cart = Cart.objects.get(user=user,product=product_obj)
+
+            if product_cart.number_of_items < product_obj.items_remaining:
+                product_cart.number_of_items = product_cart.number_of_items+1
+                product_cart.total_price = product_cart.total_price + product_obj.product_price 
+                product_cart.save()
+
+            else:
+                messages.warning(request, f"{product_obj.product_name} can't be added anymore, more stock isn't available")
+
+
+        else:
+
+            add_to_cart = Cart.objects.create(user=user, product=product_obj, number_of_items=number_of_items, total_price=total_price)
+            messages.info(request, f"{product_obj.product_name} added to the cart")
+            return redirect('all_products')
 
 
 
+    if user_type.is_student == True:
+            user_profile = UserInfo.objects.get(user=request.user)
+            today = date.today()
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
 
+            return render(request, 'products/search_product.html', {'user_profile':user_profile,
+                'current_time': current_time, 'today': today, 'items':items, 'products': products,})
+
+
+    else:
+
+
+        return render(request, 'products/teacher_search_product.html', {'user_type':user_type,'items':items,
+                 'products': products,})
 
 
 

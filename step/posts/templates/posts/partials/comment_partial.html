@@ -1,0 +1,80 @@
+
+{% for comment in comments %}
+
+            {% if comment.post_id == post.id %}
+            
+            <ul class="list-group list-group-flush" id="comments{{comment.id}}">
+                    
+                <b><li class="list-group-item align-items-center">{{comment.comment}} ~<a href="/teacher_posts/{{comment.user.id}}">{{comment.user}}</a>
+                    </li>
+
+                    <li class="list-group-item">
+                    <!--delete comment-->
+                    {% if comment.user == request.user%}
+
+
+                <!--update comment-->
+                <button type="button" data-toggle="modal" data-target="#editcommenteModal{{comment.id}}">
+                <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editcommenteModal{{comment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+
+<form method="POST" action="/edit_comment">
+{% csrf_token %}
+<div class="modal-body">
+    <div class="form-group">
+        <label for="input_address">Edit</label>
+        <input type="text" name="comment" class="form-control" value="{{comment.comment}}" id="input_address">
+    </div>
+</div>
+<div class="modal-footer">
+
+        <input hidden type="text" name="comment_id" value="{{comment.id}}">
+        <button type="submit" class="btn btn-success">Update Comment</button>
+</form>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+</div>
+</div>
+</div>
+</div>
+
+<!--update comment ends here-->
+
+
+<!--delete comment-->
+<button hx-delete="{% url 'delete_comment' comment.pk %}" 
+        hx-target="#comments{{comment.id}}">
+        <i class="fa-sharp fa-solid fa-trash"></i>
+</button>
+                        
+               
+{% elif post.user == request.user%}
+<button hx-delete="{% url 'delete_comment' comment.pk %}" 
+        hx-target="#comments{{comment.id}}">
+        <i class="fa-sharp fa-solid fa-trash"></i>
+</button>
+           
+{% endif %}
+    
+<!-- delete comment ends here-->
+</li></b>
+
+</ul>
+                        
+                    
+                    {% endif %}
+
+               
+     
+
+        
+            {% endfor%}
+
+            
+

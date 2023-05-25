@@ -1,0 +1,43 @@
+<div id="target_div">
+    <table class="table request_table table-striped">
+
+            <span style="color:green">{{ message }}</span>
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Content</th>
+                <th scope="col">Response</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in get_requests %}
+                <tr>
+                    <th scope="row">{{ request.user }}</th>
+                    <td>{{ request.subject }}</td>
+                    <td>{{ request.content }}</td>
+                    {% if request.has_responded == False %}
+                        <td>{{ request.response }}</td>
+                        <td>
+                            <form hx-post="{% url 'request_partial' %}" hx-target="#target_div">
+                                {% csrf_token %}
+
+                                <input type="text" hidden name="request_id" value="{{ request.id }}">
+                              </div>
+                                <td><input type="text" name="response" placeholder="Reply"></td>
+                                <td>
+                                    <input type="submit" class="btn-outline-danger"
+                                        value="Reply!">
+                                </td>
+                            </form>
+                        </td>
+                    {% else %}
+                        <td>{{ request.response }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>

@@ -37,53 +37,10 @@
 
 
         <br><br>
-        <div class="row">
+        <div class="row" id="target_div">
 
 
-            {% for item in cart %}
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="card product_box" style="width: 18rem;">
-                    <img class="card-img-top product_image" src="{{item.product.product_image.url}}" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">{{item.product.product_name}}</h5>
-                      <p class="card-text">{{item.product.product_category }}</p>
-                      <b><p class="card-text">${{item.total_price }}</p></b>
-                            <form style="display: inline;" method="POST" action="decrement">
-                                {% csrf_token %}
-                                <input hidden name="product_id" value="{{item.product.id}}">
-                                
-
-                                <button type="submit" class="btn btn-outline-danger">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button> &nbsp; {{item.number_of_items}}&nbsp;
-
-                            </form>
-
-                                {% if item.number_of_items == item.product.items_remaining %}
-                                <button disabled title="Can't add more" class="btn btn-outline-secondary"><i class="fa-solid fa-plus"></i></button>
-                           
-
-                                {% else %}
-                            <form style="display: inline-block;" method="POST" action="increment">
-                                {% csrf_token %}
-                                <input hidden name="product_id" value="{{item.product.id}}">
-                                
-                                
-                                <button type="submit"  class="btn btn-outline-danger">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </form>
-                            {% endif %}
-                            
-                    </div>
-                  </div>
-
-                  <br> <br>
-            </div>
-
-            
-            
-            {% endfor %}
+            {% include "products/partials/my_cart_partial.html" %}
 
            
             

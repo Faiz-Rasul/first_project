@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'teachers/base.css' %}">
     <script src="https://kit.fontawesome.com/76bcdcf8dd.js" crossorigin="anonymous"></script>
 
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+
 
     <title>{% block title %}Teacher{% endblock %}</title>
 </head>
@@ -57,16 +59,14 @@
                     <ul>
                         <li class="text-center">Menu</li>
                         <a href="/teacher_dashboard"><li><i class="fa-brands fa-slack"></i>  Dashboard</li></a>
-                        <a href="/add_course"><li><i class="fa-brands fa-slack"></i>  Add courses </li></a>
-                        <a href="/enrollment"><li><i class="fa-brands fa-slack"></i>  Enrollment </li></a>
                         <a href="/make_post"><li><i class="fa-brands fa-slack"></i>  Add post</li></a>
                         <a href="/teacher_posts/{{user.id}}"><li><i class="fa-brands fa-slack"></i>  My posts</li></a>
                         <a href="/teacher_profile/{{user}}"><li><i class="fa-brands fa-slack"></i>  Profile</li></a>
-                        <a href="/teacher_settings"><li><i class="fa-brands fa-slack"></i>  Settings</li></a>
+                        <a href="/teacher_settings"><li><i class="fa-brands fa-slack"></i>  Settings </li></a>
                         <a href="/teacher_requests"><li><i class="fa-brands fa-slack"></i>  Requests</li></a>
                         <a href="/add_products"><li><i class="fa-brands fa-slack"></i>  Add a product</li></a>
                         <a href="/all_products"><li><i class="fa-brands fa-slack"></i>  All Products</li></a>
-                        <a href="/exam"><li><i class="fa-brands fa-slack"></i>  Exam Schedule</li></a>
+                        <a href="/my_cart"><li><i class="fa-brands fa-slack"></i>  My Cart</li></a>
                         <a href="my_orders"><li><i class="fa-brands fa-slack"></i>  My Orders</li></a>
                     </ul>
                     
@@ -134,5 +134,12 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+    </script>
+
+
 </body>
 </html>

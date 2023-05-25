@@ -18,7 +18,7 @@
             <p style="color:red;">You have not placed any orders yet, you can go to the products page and place your first order. </p>
             <br><br>
             {% else %}
-            {% for item in orders %}
+            {% for item in orders reversed %}
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="card product_box" style="width: 18rem;">
                     <img class="card-img-top product_image" src="{{item.product.product_image.url}}" alt="Card image cap">

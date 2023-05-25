@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from celery.schedules import crontab
 
 
 from users.tasks import add_monthly_fee
@@ -36,9 +35,3 @@ urlpatterns = urlpatterns+static(settings.MEDIA_URL,
 document_root=settings.MEDIA_ROOT)
 
 
-CELERY_BEAT_SCHEDULE = {
-    'add-monthly-fee':{
-    'task': 'fees.tasks.add_monthly_fee',
-    'schedule': crontab(day_of_month='1')
-    },
-}

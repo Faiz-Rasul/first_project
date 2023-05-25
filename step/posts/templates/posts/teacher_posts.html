@@ -8,7 +8,7 @@
 
 
         {% for post in user_posts %}
-        <div class="card card_card">
+        <div class="card card_card"  >
             <div class="card-header d-flex justify-content-between align-items-center">
             <div>{{post.title}}</div>
             <div>
@@ -83,109 +83,41 @@ Are you sure you want to delete this post?
             </blockquote>
             </div>
 
+            
             <!--comment-->
-            <div class="comment_card card" >
-                <ul class="list-group list-group-flush">
-                    {% for comment in comments %}
-                                {% if comment.post_id == post.id %}
-                                <b><li class="list-group-item align-items-center">{{comment.comment}} ~<a href="/teacher_posts/{{comment.user.id}}">{{comment.user}}</a>
-                                    </li>
 
-            <li class="list-group-item">
-<!--delete comment-->
-{% if comment.user == request.user%}
-
-<!--update comment-->
-<button type="button" data-toggle="modal" data-target="#editcommenteModal{{comment.id}}">
-    <i class="fa-solid fa-pen-to-square"></i>
-</button>
-
-
-<!-- Modal -->
-<div class="modal fade" id="editcommenteModal{{comment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-        <form method="POST" action="/edit_comment">
-            {% csrf_token %}
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="input_address">Edit</label>
-                    <input type="text" name="comment" class="form-control" value="{{comment.comment}}" id="input_address">
-                </div>
-            </div>
-    <div class="modal-footer">
+<div class="comment_card card" >
     
-                    <input hidden type="text" name="comment_id" value="{{comment.id}}">
-                    <button type="submit" class="btn btn-success">Update Comment</button>
-        </form>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                {% include 'posts/partials/comment_partial.html' %}
+ 
+
+                <form action="/comment" method="POST">
+                    {% csrf_token %}
+                    <li class="list-group-item">
+                        <input hidden name="post_id" type="text" value="{{post.id}}">
+                        <input name="comment" autocomplete="off" class="form-control" type="text"> <br>
+                        <button class="btn btn-primary" type="submit"> Comment </button>
+                    </li> 
+                </form>
     
-    </div>
-    </div>
-    </div>
-    </div>
-
-<!--update commentt ends here-->
 
 
 
-
-
-
-
-
-    <form style="display:inline" method="POST" action="/delete_comment">
-        {% csrf_token %}
-        <input hidden type="text" name="comment_id" value="{{comment.id}}">
-        <button type="submit" class=""><i class="fa-sharp fa-solid fa-trash"></i></button>
-    </form>
-                                    
-                                    
-{% elif post.user == request.user%}
-    <form style="display:inline" method="POST" action="/delete_comment">
-        {% csrf_token %}
-        <input hidden type="text" name="comment_id" value="{{comment.id}}">
-        <button type="submit" class=""><i class="fa-sharp fa-solid fa-trash"></i></button>
-    </form>
-                                    
-{% endif %}
-                                    
-<!-- delete comment ends here-->
-        </li></b>
-                                    
-                              
-                                {% endif %}
-                                
-                            {% empty %}
-                            No comments yet
-                            {% endfor%}
-                 
-                    <form action="/comment" method="POST">
-                        {% csrf_token %}
-                        <li class="list-group-item">
-                            <input hidden name="post_id" type="text" value="{{post.id}}">
-                            <input name="comment" autocomplete="off" class="form-control" type="text"> <br>
-                            <button class="btn btn-primary" type="submit"> Comment </button>
-                        </li> 
-                    </form>
-                  <hr>
-                </ul>
-            </div>
-
-            <!-- comment ends here-->
+            
+          <hr>
+</div>
+    
+    <!-- comment ends here-->
 
             <br>
-        </div>
-        <br>
-        
+</div>
+<br>
+            {% empty %}
 
-
-        {% empty %}
-
-        <h2 style="color:red">There are no posts to show!</h2>
-    
-        {% endfor %}
+            <h2 style="color:red">There are no posts to show!</h2>
+            
+            {% endfor %}
 
 
             {% if user_posts.has_previous %}

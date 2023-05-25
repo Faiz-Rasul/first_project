@@ -21,6 +21,7 @@ class Products(models.Model):
     product_category = models.CharField(choices=CATEGORY_CHOICES, default='study', max_length=50)
     product_image = models.ImageField(upload_to='product_images',  default='download.png' )
     items_remaining = models.IntegerField(blank=False, default=1)
+    items_sold = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username+ " - " + self.product_name
