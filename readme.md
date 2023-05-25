@@ -1,9 +1,13 @@
-This project is a clone of my university website. Its bsically a student portal, where students can create their new accounts, login and check their enrollment etc.
-The project is created using HTML, CSS, Bootstrap, JS, HTMX for frontend and Python, Django for the backend and the Django based ORM for the database.
-The project has several modules, starting with register new user where a new user can enter their credentials and if correct their new account is created, they are then logged in and can logout when they want.
-Once logged in, the user gets redirected to the home page where they can see all the options on the navigation to the left, they can see their enrollment on the enrollment page, they can also drop a course from there if they want, they can go to the add course page to add a new course.
-Then we have the fees page where a student can check their fees voucher whihc gets generated according to the number of courses a student picks.
-Then we have a voting page where if the university wants the students opinion on a matter they can ask the studenst to vote and the student can then see the results once they hav evoted.
-Then we have the profile and settings page where on the profile page the student can see their profile and they can edit/update it on the settings page.
-We then have the request and view request pages, where student can send a request to the admin panel and on the view request page they can later see if there is any response from the admin.
-After that we have the Online class page and Exam page which can only we accessed during class/exam times.
+This project is a clone of my university website. Its basically a student/teacher portal, where users can create their accounts, login and and manage their accounts.
+
+The project is created using HTML, CSS, Bootstrap, JS, HTMX for frontend and Python, Django for the backend and the Django based ORM with SQLite3 for the database.
+
+The project has has two types of users one is student and one is teacher, you can register/login as either one and will get functionality accordingly.
+
+Students can enroll themselves in courses and later drop those courses, check their fees which gets updated according to the number of courses they have enrolled in, they can also send requests which the teachers can later respond to.
+
+
+We have a Posts app which gives a blog like functionality where users can make posts, comment on the posts and like the posts, they can also edit/delete their posts and comments.
+
+Then there's the products app where teachers can list products and students can order those products, there's search product to search a specific product, there's my cart to order multiple items at one time and there's also my orders page to keep track of all your current and previous orders. 
+
